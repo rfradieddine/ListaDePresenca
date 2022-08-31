@@ -1,16 +1,63 @@
+import React, { useState, useEffect, useReducer } from "react";
 import "./styles.css";
-
-import { Card } from "../../Components/Card";
+import { Card } from "../../components/Card";
 
 export function Home() {
+  const [studentName, setStudentName] = useState("");
+  const [students, setStudents] = useState([]);
+  const [user, setUser] = useState({ name: '', avatar: '' })
+
+  function handleAddStudent() {
+    const newStudent = {
+      name: studentName,
+      time: new Date().toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }),
+    };
+
+    setStudents((prevState) => [...prevState, newStudent]);
+  }
+
+  useEffect(() => { //executar algo apos o adicionamento ou carregamento
+    fetch('https://api.github.com/users/rfradieddine')
+      .then(response => response.json())
+      .then(data => {
+        setUser({
+          name: data.name,
+          avatar: data.avatar_url,
+        })
+      });
+  }, []);
+
+
   return (
     <div className="container">
-      <h1>Lista de presença</h1>
-      <input type="text" placeholder="Digite o nome..." />
-      <button type="button">Adicionar</button>
+      <header>
+        <h1>Lista de Presença</h1>
+        <div>
+          <strong>Rafae{user.name}</strong>
+          <img src={user.avatar} alt="Foto de perfil" />
+        </div>
+      </header>
+      <input
+        type="text"
+        placeholder="Digite o nome..."
+        onChange={(e) => setStudentName(e.target.value)}
+      />
+      <button type="button" onClick={handleAddStudent}>
+        Adicionar
+      </button>
 
-      <Card name="Rafael" time="10:10:21" />
-      <Card name="Igor" time="15:12:21" />
+      {students.map((student) => (
+        <Card
+          key={student.time} //alerta excluido
+          name={student.name}
+          time={student.time}
+        />
+      ))}
     </div>
   );
 }
+
