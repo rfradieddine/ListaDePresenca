@@ -65,3 +65,7 @@
 
   filter: brightness(0.9);
 }
+
+body {
+  background-color: rgb(211, 211, 211);
+}

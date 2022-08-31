@@ -37,7 +37,7 @@ export function Home() {
       <header>
         <h1>Lista de Presença</h1>
         <div>
-          <strong>Rafae{user.name}</strong>
+          <strong>{user.name}</strong>
           <img src={user.avatar} alt="Foto de perfil" />
         </div>
       </header>
