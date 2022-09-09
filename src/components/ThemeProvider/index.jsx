@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ThemeProvider as StyledCompThemeProvider } from "styled-components";
-import getTheme from '../styles/themes'
+import getTheme from '../../styles/themes.js'
 
 // eslint-disable-next-line no-unused-vars
 export const CustomThemeContext = React.createContext(
@@ -46,4 +46,4 @@ const ThemeProvider = (props) => {
 	)
 }
 
-export default ThemeProvider
+export default ThemeProvider;

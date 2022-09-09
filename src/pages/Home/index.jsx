@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Container } from './styles'
 import { Card } from "../../components/Card";
+import { useSelector, useDispatch } from 'react-redux';
+import { setStudents } from "../../action/studentsAction";
+
 
 export function Home() {
 	const [studentName, setStudentName] = useState("");
-	const [students, setStudents] = useState(JSON.parse(localStorage.getItem('students') || '[]'));
 	const [user, setUser] = useState({ name: '', avatar: '' })
+	const students = useSelector((state) => state.studentsReducer.students);
+	const dispatch = useDispatch();
 
 	useEffect(() => { //executar algo apos o adicionamento ou carregamento
+		dispatch(setStudents(JSON.parse(sessionStorage.getItem('students') || '[]')))
 		fetch('https://api.github.com/users/gabrielhrp31')
 			.then(response => response.json())
 			.then(data => {
@@ -19,16 +24,19 @@ export function Home() {
 	}, []);
 
 	function handleAddStudent() {
-		const newStudent = {
-			name: studentName,
-			time: new Date().toLocaleTimeString("pt-BR", {
-				hour: "2-digit",
-				minute: "2-digit",
-				second: "2-digit",
-			}),
-		};
-
-		setStudents((prevState) => [...prevState, newStudent]);
+		if (studentName?.trim()?.length) {
+			const newStudent = {
+				name: studentName,
+				time: new Date().toLocaleTimeString("pt-BR", {
+					hour: "2-digit",
+					minute: "2-digit",
+					second: "2-digit",
+				}),
+			};
+			dispatch(setStudents([...students, newStudent]))
+		} else {
+			alert("Nome não preenchido!");
+		}
 	}
 
 
