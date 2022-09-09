@@ -1,4 +1,6 @@
-.card{
+import styled from "styled-components"
+
+export const CardWrapper = styled.div`
 
   height: 100px;
   width: 50%;
@@ -14,10 +16,7 @@
   justify-content: space-between;
   padding: 24px;
 
-}
-
-
-.card strong{
-
-  font-size: 18px;
-}
+	strong{
+		font-size: 18px;
+	}
+`

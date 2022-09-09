@@ -1,10 +1,10 @@
-import "./styless.css";
+import { CardWrapper } from "./styles.js";
 
 export function Card(props) {
-  return (
-    <div className="card">
-      <strong>{props.name}</strong>
-      <small>{props.time}</small>
-    </div>
-  );
+	return (
+		<CardWrapper>
+			<strong>{props.name}</strong>
+			<small>{props.time}</small>
+		</CardWrapper>
+	);
 }
